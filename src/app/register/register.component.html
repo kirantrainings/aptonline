@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control"  [(ngModel)]="userDetails.email">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">User Name</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control"  [(ngModel)]="userDetails.userName">
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control"
+      datepickerdirective [mindate]="'-10'" 
+      [maxdate]="'10'"
+      (dateSelected)="dateSelected($event)"
+      [(ngModel)]="userDetails.password">{{userDetails.password}}
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">First Name</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" 
+      keyindirective
+      [(ngModel)]="userDetails.firstName">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Last Name</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" [(ngModel)]="userDetails.lastName">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Age</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" [(ngModel)]="userDetails.age">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Mobile</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" [(ngModel)]="userDetails.mobileNumber">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Gender</label>
+    <div class="col-sm-4">
+      <input type="radio" value='M' [(ngModel)]='userDetails.gender'>Male
+      <input type="radio" value='F' [(ngModel)]='userDetails.gender'>Female
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Countries</label>
+    <div class="col-sm-4">
+      <select class="form-control" [(ngModel)]='userDetails.country' (change)='getStateByCountry()'>
+        <option value=''>Select Country</option>
+        <option [value]="c.alpha2Code" *ngFor='let c of countries'>{{c.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row" *ngIf='userDetails.country'>
+    <label class="col-sm-2 col-form-label">State</label>
+    <div class="col-sm-4">
+      <select class="form-control" [(ngModel)]='userDetails.state'>
+        <option value=''>Select State</option>
+        <option [value]="s.stateCode" *ngFor='let s of statesByCountry'>{{s.stateName}}</option>
+      </select>
+    </div>
+  </div>
+  <!-- <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Date of Birth</label>
+    
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+        </div>
+      </div>
+  
+  </div> -->
+
+  <div class="form-group row">
+    <input type='checkbox' [(ngModel)]='userDetails.agree'>
+    <label class="col-sm-2 col-form-label">*I Agree terms</label>
+  </div>
+
+  <div class="form-group row">
+    <button class="btn btn-primary" [disabled]='!userDetails.agree' (click)="registerUser()">Register</button>
+
+  </div>
+</div>
+
+{{userDetails|json}}
